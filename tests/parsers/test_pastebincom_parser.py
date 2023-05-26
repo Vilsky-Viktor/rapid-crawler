@@ -1,6 +1,6 @@
 from lxml import html
 from lxml.etree import _Element
-from rapid_scrawler.parsers.pastebincom_parser import PastebincomParser
+from rapid_crawler.parsers.pastebincom_parser import PastebincomParser
 
 
 def test_get_post_urls():

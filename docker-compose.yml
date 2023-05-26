@@ -19,8 +19,8 @@ services:
     volumes:
       - mongodata:/data/db
 
-  rapid-scrawler:
-    container_name: rapid-scrawler
+  rapid-crawler:
+    container_name: rapid-crawler
     restart: always
     build:
       dockerfile: Dockerfile

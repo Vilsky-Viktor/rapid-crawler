@@ -3,8 +3,8 @@ from logging import Logger
 import asyncio
 import requests
 from lxml import html
-from rapid_scrawler.decorators.async_timeit import async_timeit
-from rapid_scrawler.db.posts import PostsTable
+from rapid_crawler.decorators.async_timeit import async_timeit
+from rapid_crawler.db.posts import PostsTable
 from lxml.etree import _ElementTree
 
 

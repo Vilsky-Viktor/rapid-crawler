@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "rapid-scrawler"
+name = "rapid-crawler"
 version = "0.1.0"
-description = "Web scrawler"
+description = "Web crawler"
 authors = ["Viktor Vilsky <vilsky.v@gmail.com>"]
 readme = "README.md"
-packages = [{include = "rapid_scrawler"}]
+packages = [{include = "rapid_crawler"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"

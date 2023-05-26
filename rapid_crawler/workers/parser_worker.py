@@ -2,9 +2,9 @@ import asyncio
 import atexit
 from logging import Logger
 from multiprocessing import Queue, Process
-from rapid_scrawler.config import Config
-from rapid_scrawler.db.posts import PostsTable
-from rapid_scrawler.log import create_logger
+from rapid_crawler.config import Config
+from rapid_crawler.db.posts import PostsTable
+from rapid_crawler.log import create_logger
 
 queue = Queue()
 

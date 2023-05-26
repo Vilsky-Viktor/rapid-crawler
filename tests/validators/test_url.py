@@ -1,4 +1,4 @@
-from rapid_scrawler.validators.url import is_valid_url
+from rapid_crawler.validators.url import is_valid_url
 
 
 def test_is_valid_url_http():

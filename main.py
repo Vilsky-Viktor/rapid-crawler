@@ -1,9 +1,9 @@
 import time
-from rapid_scrawler.workers.parser_worker import create_workers, queue
-from rapid_scrawler.config import Config
-from rapid_scrawler.parsers.parser_factory import ParserFactory
-from rapid_scrawler.log import create_logger
-from rapid_scrawler.validators.url import is_valid_url
+from rapid_crawler.workers.parser_worker import create_workers, queue
+from rapid_crawler.config import Config
+from rapid_crawler.parsers.parser_factory import ParserFactory
+from rapid_crawler.log import create_logger
+from rapid_crawler.validators.url import is_valid_url
 
 if __name__ == "__main__":
     logger = create_logger()

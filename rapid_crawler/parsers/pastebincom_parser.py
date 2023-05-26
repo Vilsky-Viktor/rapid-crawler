@@ -1,8 +1,8 @@
 import dateparser
 import arrow
-from rapid_scrawler.models.post import PostModel
-from rapid_scrawler.parsers.parser_base import ParserBase
-from rapid_scrawler.config import Config
+from rapid_crawler.models.post import PostModel
+from rapid_crawler.parsers.parser_base import ParserBase
+from rapid_crawler.config import Config
 from lxml.etree import _ElementTree
 
 

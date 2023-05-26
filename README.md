@@ -1,4 +1,4 @@
-# Rapid Scrawler
+# Rapid Crawler
 
 The goal of the service is to parse web-sites and save the latest posts to a database with a certain metadata (title, date, user, content)
 
@@ -11,7 +11,7 @@ The goal of the service is to parse web-sites and save the latest posts to a dat
 The repo contains Dockerfile and docker-compose setup for multiplatform local run.
 
 ```bash
-cd path/to/project/rapid-scrawler
+cd path/to/project/rapid-crawler
 docker-compose up -d
 ```
 In order to list all the running containers
@@ -20,11 +20,11 @@ docker ps
 ```
 Show the log of the service
 ```bash
-docker logs -f rapid-scrawler
+docker logs -f rapid-crawler
 ```
 To run the service locally without docker-compose make sure you have running mongoDB instance on your machine
 ```bash
-cd path/to/project/rapid-scrawler
+cd path/to/project/rapid-crawler
 poetry install
 poetry run python main.py
 ```
@@ -55,7 +55,7 @@ When all the metadata is collected the programm writes each post to the database
 ## Unit tests and linter
 In order to run unit tests
 ```bash
-cd path/to/project/rapid-scrawler
+cd path/to/project/rapid-crawler
 poetry install
 poetry run pytest
 poetry run black .

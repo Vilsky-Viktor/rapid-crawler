@@ -1,7 +1,7 @@
 import pymongo
 from typing import List, Optional
-from rapid_scrawler.config import Config
-from rapid_scrawler.models.post import PostModel
+from rapid_crawler.config import Config
+from rapid_crawler.models.post import PostModel
 
 
 class PostsTable:

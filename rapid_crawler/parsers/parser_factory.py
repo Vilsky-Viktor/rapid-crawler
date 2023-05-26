@@ -1,5 +1,5 @@
 from urllib.parse import urlparse
-from rapid_scrawler.parsers.pastebincom_parser import PastebincomParser
+from rapid_crawler.parsers.pastebincom_parser import PastebincomParser
 
 PARSER_MAP = {"https://pastebin.com/archive": PastebincomParser}
 
