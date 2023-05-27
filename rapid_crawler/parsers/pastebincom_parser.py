@@ -30,7 +30,7 @@ class PastebincomParser(ParserBase):
         content = self._get_post_content(page_tree, post_url)
         post = PostModel(self.url, post_url, title, content, user, date)
 
-        if self.is_newest_post(post.date):
+        if self.is_newest_post(post):
             self.posts.append(post)
 
     def _get_post_info_block(self, tree: _ElementTree, post_url: str) -> _ElementTree:

@@ -63,9 +63,9 @@ class ParserBase(ABC):
                 f"did not manage to update posts for {self.url}: {str(error)}"
             )
 
-    def is_newest_post(self, date):
-        if self.latest_saved_post and arrow.get(date) <= arrow.get(
-            self.latest_saved_post
+    def is_newest_post(self, post):
+        if self.latest_saved_post and arrow.get(post.date) <= arrow.get(
+            self.latest_saved_post.date
         ):
             return False
         return True
