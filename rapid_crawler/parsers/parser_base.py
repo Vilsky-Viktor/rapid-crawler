@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from logging import Logger
 import asyncio
 import requests
+import arrow
 from lxml import html
 from rapid_crawler.decorators.async_timeit import async_timeit
 from rapid_crawler.db.posts import PostsTable
@@ -15,6 +16,7 @@ class ParserBase(ABC):
         self.base_url = base_url
         self.post_urls = []
         self.posts = []
+        self.latest_saved_post = None
         self.logger = None
 
     @abstractmethod
@@ -52,6 +54,7 @@ class ParserBase(ABC):
             page_tree = await self._get_page_tree(self.url)
             self._get_post_urls(page_tree)
             await self._collect_new_posts()
+            self.filter_posts_by_date()
             self.db.insert_many(self.posts)
             self.logger.info(
                 f"new posts ({len(self.posts)}) have been saved for {self.url}"
@@ -60,6 +63,19 @@ class ParserBase(ABC):
             self.logger.error(
                 f"did not manage to update posts for {self.url}: {str(error)}"
             )
+
+    def filter_posts_by_date(self) -> None:
+        if not self.latest_saved_post:
+            return
+
+        newest_posts = []
+        for post in self.posts:
+            latest_saved_post_date = arrow.get(self.latest_saved_post.date)
+            current_post_date = arrow.get(post.date)
+            if current_post_date > latest_saved_post_date:
+                newest_posts.append(post)
+
+        self.posts = newest_posts
 
     async def _get_page_tree(self, url: str) -> _ElementTree:
         try:
@@ -72,12 +88,12 @@ class ParserBase(ABC):
             raise Exception(f"page is not available {url}")
 
     async def _collect_new_posts(self) -> None:
-        latest_post = self.db.get_latest_item(self.url)
+        self.latest_saved_post = self.db.get_latest_item(self.url)
         jobs = []
         count = 1
 
         for post_url in self.post_urls:
-            if latest_post and latest_post.post_url == post_url:
+            if self.latest_saved_post and self.latest_saved_post.post_url == post_url:
                 break
             job = self._get_post_data(post_url)
             jobs.append(job)

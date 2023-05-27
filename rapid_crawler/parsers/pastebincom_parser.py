@@ -14,9 +14,8 @@ class PastebincomParser(ParserBase):
         try:
             table = page_tree.cssselect("table")[0]
             for row in table.cssselect("tr")[1:]:
-                first_cell = row.cssselect("td")[0]
-                a_element = first_cell.cssselect("a")[0]
-                path = a_element.get("href")
+                title_cell = row.cssselect("td")[0]
+                path = title_cell.cssselect("a")[0].get("href")
                 post_url = f"{self.base_url}{path}"
                 self.post_urls.append(post_url)
         except Exception:
