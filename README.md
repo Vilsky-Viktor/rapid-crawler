@@ -12,6 +12,7 @@ The repo contains Dockerfile and docker-compose setup for multiplatform local ru
 
 ```bash
 cd path/to/project/rapid-crawler
+docker-compose build --no-cache
 docker-compose up -d
 ```
 In order to list all the running containers
