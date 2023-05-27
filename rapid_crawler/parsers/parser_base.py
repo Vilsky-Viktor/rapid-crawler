@@ -54,7 +54,6 @@ class ParserBase(ABC):
             page_tree = await self._get_page_tree(self.url)
             self._get_post_urls(page_tree)
             await self._collect_new_posts()
-            self.filter_posts_by_date()
             self.db.insert_many(self.posts)
             self.logger.info(
                 f"new posts ({len(self.posts)}) have been saved for {self.url}"
@@ -64,18 +63,12 @@ class ParserBase(ABC):
                 f"did not manage to update posts for {self.url}: {str(error)}"
             )
 
-    def filter_posts_by_date(self) -> None:
-        if not self.latest_saved_post:
-            return
-
-        newest_posts = []
-        for post in self.posts:
-            latest_saved_post_date = arrow.get(self.latest_saved_post.date)
-            current_post_date = arrow.get(post.date)
-            if current_post_date > latest_saved_post_date:
-                newest_posts.append(post)
-
-        self.posts = newest_posts
+    def is_newest_post(self, date):
+        if self.latest_saved_post and arrow.get(date) <= arrow.get(
+            self.latest_saved_post
+        ):
+            return False
+        return True
 
     async def _get_page_tree(self, url: str) -> _ElementTree:
         try:

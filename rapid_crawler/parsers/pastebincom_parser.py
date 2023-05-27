@@ -24,12 +24,14 @@ class PastebincomParser(ParserBase):
     async def _get_post_data(self, post_url: str) -> None:
         page_tree = await self._get_page_tree(post_url)
         info_tree = self._get_post_info_block(page_tree, post_url)
-        title = self._get_post_title(info_tree, post_url)
         date = self._get_post_date(info_tree, post_url)
+        title = self._get_post_title(info_tree, post_url)
         user = self._get_post_user(info_tree, post_url)
         content = self._get_post_content(page_tree, post_url)
         post = PostModel(self.url, post_url, title, content, user, date)
-        self.posts.append(post)
+
+        if self.is_newest_post(post.date):
+            self.posts.append(post)
 
     def _get_post_info_block(self, tree: _ElementTree, post_url: str) -> _ElementTree:
         try:
