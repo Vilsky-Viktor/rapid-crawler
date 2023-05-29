@@ -2,10 +2,6 @@
 
 The goal of the service is to parse web-sites and save the latest posts to a database with a certain metadata (title, date, user, content)
 
-## Requirements
-* Python 3.11
-* Poetry 1.4.2
-
 ## Run it
 
 The repo contains Dockerfile and docker-compose setup for multiplatform local run.
