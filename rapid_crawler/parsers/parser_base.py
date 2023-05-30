@@ -52,6 +52,7 @@ class ParserBase(ABC):
         self.logger.info(f"parse posts for {self.url}")
         try:
             page_tree = await self._get_page_tree(self.url)
+            self._get_latest_saved_post()
             self._get_post_urls(page_tree)
             await self._collect_new_posts()
             self.db.insert_many(self.posts)
@@ -80,17 +81,17 @@ class ParserBase(ABC):
         except Exception:
             raise Exception(f"page is not available {url}")
 
-    async def _collect_new_posts(self) -> None:
+    def _get_latest_saved_post(self) -> None:
         self.latest_saved_post = self.db.get_latest_item(self.url)
+
+    async def _collect_new_posts(self) -> None:
         jobs = []
-        count = 1
 
         for post_url in self.post_urls:
             if self.latest_saved_post and self.latest_saved_post.post_url == post_url:
                 break
             job = self._get_post_data(post_url)
             jobs.append(job)
-            count += 1
 
         await asyncio.gather(*jobs)
 
