@@ -12,7 +12,7 @@ if __name__ == "__main__":
         unique_urls = list(set(Config.PARSING_URLS))
         for url in unique_urls:
             if not is_valid_url(url):
-                logger.info("skipping not valid url {url}")
+                logger.info(f"skipping not valid url {url}")
                 continue
             try:
                 parser_factory = ParserFactory(url)
